@@ -57,6 +57,4 @@ Add parameter `use_odesolvers_poststep_during_rksubsteps = no` to your parfile.
 
 ## More GPU-Friendly Thorns
 
-* Thorns
-
-    * [WeylScalo](https://github.com/lwJi/SpacetimeX/tree/development/WeylScalo)
+* [WeylScalo](https://github.com/lwJi/SpacetimeX/tree/development/WeylScalo)
