@@ -55,7 +55,7 @@ Add parameter `use_odesolvers_poststep_during_rksubsteps = no` to your parfile.
         https://github.com/lwJi/AsterX.git
         ```
 
-## List of GPU-Friendly Thorns
+## More GPU-Friendly Thorns
 
 * Thorns
 
