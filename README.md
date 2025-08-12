@@ -31,6 +31,10 @@ excluding the `SYNC` calls for evolved variables.
 The `SYNC` of evolved variables is automatically handled by `ODESovlers`.
 Add parameter `use_odesolvers_poststep_during_rksubsteps = no` to your parfile.
 
+* Step 4: Add `ODESolvers_Solve_Subcycling` to `schedule.ccl` which contains `ODESolvers_Solve`.
+For example,
+[in WeyleScalo](https://github.com/lwJi/SpacetimeX/blob/91e36e0aaf11b50a00f341c7d3427381f1788663/WeylScalo/schedule.ccl#L10)
+
 ## List of Thorns Compatible with Subcycling
 
 * Spacetime
