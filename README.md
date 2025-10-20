@@ -35,6 +35,17 @@ Add parameter `use_odesolvers_poststep_during_rksubsteps = no` to your parfile.
 For example,
 [in WeyleScalo](https://github.com/lwJi/SpacetimeX/blob/91e36e0aaf11b50a00f341c7d3427381f1788663/WeylScalo/schedule.ccl#L10)
 
+## Running on GPUs
+
+* Use 1 OMP only per GPU device. Multiple OMP per GPU is not compatible with some thorns for now (e.g. PunctureTracker).
+
+* Setting the following to disable tiling
+    ```
+    CarpetX::max_tile_size_x = 10240000
+    CarpetX::max_tile_size_y = 10240000
+    CarpetX::max_tile_size_z = 10240000
+    ```
+
 ## List of Thorns Compatible with Subcycling
 
 * Spacetime
