@@ -73,3 +73,8 @@ For example,
 ## More GPU-Friendly Thorns
 
 * [WeylScalo](https://github.com/lwJi/SpacetimeX/tree/development/WeylScalo)
+
+
+## Example Parfiles
+
+* `Parfile/q1-Z4cowGPU-N4.par`: Parameter file for a binary black hole (BBH) simulation with mass ratio q=1, using the Z4cowGPU thorn and WeylScalo thorn. The `max_grid_size` settings are tuned for efficient execution on 4 GPUs; adjust these values as needed for your own GPU configuration.

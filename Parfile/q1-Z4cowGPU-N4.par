@@ -1,0 +1,288 @@
+# q1-Z4cowGPU.par
+
+$itlast             = 64 * 16
+$final_time         = 600
+$xmin               = -400.0
+$xmax               = +400.0
+$ncells             = 240
+$nlevels            = 9
+$dtfac              = 0.25
+$error_threshold    = 0.9
+$out_every          = 256 * 2
+$out_silo_every     = 256 * 16
+$wave_extract_every = 64  # every (dx at r=100) * dtfac 
+
+ActiveThorns = "
+  ADMBaseX
+  AEILocalInterp
+  #AHFinderDirect
+  BoxInBox
+  CarpetX
+  CoordinatesX
+  IOUtil
+  Multipole
+  ODESolvers
+  #SphericalSurface
+  PunctureTracker
+  #TerminationTrigger
+  TimerReport
+  TmunuBaseX
+  TwoPuncturesX
+  WeylScalo
+  Z4cowGPU
+"
+
+Cactus::cctk_show_schedule = yes
+Cactus::presync_mode       = "mixed-error"
+Cactus::terminate          = "time"
+Cactus::cctk_itlast        = $itlast
+Cactus::cctk_final_time    = $final_time
+
+CarpetX::verbose                 = no
+CarpetX::poison_undefined_values = no
+
+CarpetX::use_subcycling_wip   = yes
+CarpetX::restrict_during_sync = no
+
+CarpetX::xmin     = $xmin
+CarpetX::ymin     = $xmin
+CarpetX::zmin     = $xmin
+CarpetX::xmax     = $xmax
+CarpetX::ymax     = $xmax
+CarpetX::zmax     = $xmax
+CarpetX::ncells_x = $ncells
+CarpetX::ncells_y = $ncells
+CarpetX::ncells_z = $ncells
+
+CarpetX::dtfac                  = $dtfac
+CarpetX::max_num_levels         = $nlevels
+CarpetX::regrid_every           = 32
+CarpetX::regrid_error_threshold = $error_threshold
+
+CarpetX::ghost_size          = 4
+CarpetX::interpolation_order = 3
+CarpetX::prolongation_type   = "ddf"
+CarpetX::prolongation_order  = 5
+
+CarpetX::max_tile_size_x = 10240000
+CarpetX::max_tile_size_y = 10240000
+CarpetX::max_tile_size_z = 10240000
+
+CarpetX::blocking_factor_x = 8
+CarpetX::blocking_factor_y = 8
+CarpetX::blocking_factor_z = 8
+
+CarpetX::max_grid_sizes_x = [136, 152, 152, 160, 168, 152, 176, 144, 144]
+CarpetX::max_grid_sizes_y = [136, 152, 152, 160, 168, 152, 176, 144, 144]
+CarpetX::max_grid_sizes_z = [136, 152, 152, 160, 168, 152, 176, 144, 144]
+
+CarpetX::refine_grid_layout = no
+
+CarpetX::boundary_x       = "linear extrapolation"
+CarpetX::boundary_y       = "linear extrapolation"
+CarpetX::boundary_z       = "linear extrapolation"
+CarpetX::boundary_upper_x = "linear extrapolation"
+CarpetX::boundary_upper_y = "linear extrapolation"
+CarpetX::boundary_upper_z = "linear extrapolation"
+
+ADMBaseX::initial_data  = "TwoPunctures"
+ADMBaseX::initial_lapse = "TwoPunctures-averaged"
+
+BoxInBox::num_regions  = 2
+# Region 1
+BoxInBox::shape_1      = "cube"
+BoxInBox::num_levels_1 = $nlevels
+BoxInBox::position_x_1 = +4.0
+BoxInBox::radius_1     = [-1., 220., 110., 55., 25., 10., 5., 2., 1.]
+# Region 2
+BoxInBox::shape_2      = "cube"
+BoxInBox::num_levels_2 = $nlevels
+BoxInBox::position_x_2 = -4.0
+BoxInBox::radius_2     = [-1., 220., 110., 55., 25., 10., 5., 2., 1.]
+
+ODESolvers::verbose = no
+ODESolvers::method  = "RK4"
+ODESolvers::use_odesolvers_poststep_during_rksubsteps = no
+
+PunctureTracker::verbose      = no
+PunctureTracker::track_boxes  = yes
+PunctureTracker::interp_order = 3
+PunctureTracker::track    [0] = yes
+PunctureTracker::initial_x[0] = +4.0
+PunctureTracker::track    [1] = yes
+PunctureTracker::initial_x[1] = -4.0
+
+# Q1-setup
+TwoPuncturesX::verbose           = yes
+TwoPuncturesX::par_b             = 4.0
+TwoPuncturesX::par_m_plus        = 0.4824
+TwoPuncturesX::par_m_minus       = 0.4824
+TwoPuncturesX::par_P_plus [1]    = +0.114
+TwoPuncturesX::par_P_minus[1]    = -0.114
+TwoPuncturesX::grid_setup_method = "evaluation"
+TwoPuncturesX::TP_epsilon        = 1.0e-2
+TwoPuncturesX::TP_Tiny           = 1.0e-2
+
+Z4cowGPU::calc_derivs_live    = no
+Z4cowGPU::calc_ADM_vars       = yes  # for Weyl
+Z4cowGPU::calc_constraints    = yes
+Z4cowGPU::deriv_order         = 8
+Z4cowGPU::diss_order          = 5
+Z4cowGPU::W_floor             = 1.0e-30
+Z4cowGPU::alphaG_floor        = 1.0e-30
+Z4cowGPU::epsdiss             = 0.4
+Z4cowGPU::f_mu_S              = 0.75
+Z4cowGPU::veta_central        = 2.0
+Z4cowGPU::veta_width          = 40.00
+Z4cowGPU::boundary_conditions = "NewRadX"
+
+WeylScalo::calc_derivs_live = no
+WeylScalo::elecmag_weyl     = no
+
+Multipole::verbose   = no
+Multipole::nradii    = 6
+Multipole::radius[0] = 50
+Multipole::radius[1] = 60
+Multipole::radius[2] = 70
+Multipole::radius[3] = 80
+Multipole::radius[4] = 90
+Multipole::radius[5] = 100
+
+Multipole::ntheta            = 120
+Multipole::nphi              = 240
+Multipole::variables         = "WeylScalo::Psi4r{sw=-2 cmplx='WeylScalo::Psi4i' name='Psi4'}"
+Multipole::out_every         = $wave_extract_every
+Multipole::l_max             = 4
+Multipole::interpolator_pars = "order=3"
+
+#AHFinderDirect::find_every   = 16
+#AHFinderDirect::move_origins = yes
+#AHFinderDirect::geometry_interpolator_name = "CarpetX"
+#AHFinderDirect::geometry_interpolator_pars = "order=3"
+#AHFinderDirect::surface_interpolator_name  = "Lagrange polynomial interpolation"
+#AHFinderDirect::surface_interpolator_pars  = "order=3"
+#
+#AHFinderDirect::N_horizons = 3
+#AHFinderDirect::origin_x                                 [1] = 4
+#AHFinderDirect::origin_y                                 [1] = 0
+#AHFinderDirect::origin_z                                 [1] = 0
+#AHFinderDirect::initial_guess__coord_sphere__x_center    [1] = 4
+#AHFinderDirect::initial_guess__coord_sphere__y_center    [1] = 0
+#AHFinderDirect::initial_guess__coord_sphere__z_center    [1] = 0
+#AHFinderDirect::initial_guess__coord_sphere__radius      [1] = 0.4
+#AHFinderDirect::which_surface_to_store_info              [1] = 0
+#AHFinderDirect::reset_horizon_after_not_finding          [1] = no
+#AHFinderDirect::patch_system_type                        [1] = "full sphere"
+#
+#AHFinderDirect::origin_x                                 [2] = -4
+#AHFinderDirect::origin_y                                 [2] = 0
+#AHFinderDirect::origin_z                                 [2] = 0
+#AHFinderDirect::initial_guess__coord_sphere__x_center    [2] = -4
+#AHFinderDirect::initial_guess__coord_sphere__y_center    [2] = 0
+#AHFinderDirect::initial_guess__coord_sphere__z_center    [2] = 0
+#AHFinderDirect::initial_guess__coord_sphere__radius      [2] = 0.4
+#AHFinderDirect::which_surface_to_store_info              [2] = 1
+#AHFinderDirect::reset_horizon_after_not_finding          [2] = no
+#AHFinderDirect::patch_system_type                        [2] = "full sphere"
+#
+#AHFinderDirect::origin_x                                 [3] = 0
+#AHFinderDirect::origin_y                                 [3] = 0
+#AHFinderDirect::origin_z                                 [3] = 0
+#AHFinderDirect::initial_guess__coord_sphere__x_center    [3] = 0
+#AHFinderDirect::initial_guess__coord_sphere__y_center    [3] = 0
+#AHFinderDirect::initial_guess__coord_sphere__z_center    [3] = 0
+#AHFinderDirect::initial_guess__coord_sphere__radius      [3] = 1.5
+#AHFinderDirect::which_surface_to_store_info              [3] = 2
+#AHFinderDirect::reset_horizon_after_not_finding          [3] = no
+#AHFinderDirect::patch_system_type                        [3] = "full sphere"
+#
+#SphericalSurface::nsurfaces = 3
+#SphericalSurface::maxntheta = 39
+#SphericalSurface::maxnphi   = 76
+#
+#SphericalSurface::ntheta      [0] = 39
+#SphericalSurface::nphi        [0] = 76
+#SphericalSurface::nghoststheta[0] = 2
+#SphericalSurface::nghostsphi  [0] = 2
+#
+#SphericalSurface::ntheta      [1] = 39
+#SphericalSurface::nphi        [1] = 76
+#SphericalSurface::nghoststheta[1] = 2
+#SphericalSurface::nghostsphi  [1] = 2
+#
+#SphericalSurface::ntheta      [2] = 39
+#SphericalSurface::nphi        [2] = 76
+#SphericalSurface::nghoststheta[2] = 2
+#SphericalSurface::nghostsphi  [2] = 2
+
+#TerminationTrigger::max_walltime                 = 48
+## Trigger termination 30 minutes before the walltime is reached
+#TerminationTrigger::on_remaining_walltime        = 30
+#TerminationTrigger::output_remtime_every_minutes = 30
+#TerminationTrigger::termination_from_file        = yes
+#TerminationTrigger::termination_file             = "terminate.txt"
+#TerminationTrigger::create_termination_file      = yes
+
+#IO::out_dir                         = $parfile
+#IO::out_every                       = $out_every
+#IO::parfile_write                   = no
+IO::checkpoint_dir                  = "../checkpoint"
+IO::recover_dir                     = "../checkpoint"
+IO::checkpoint_ID                   = no
+IO::checkpoint_every                = 256 * 115
+#IO::checkpoint_every_walltime_hours = 23.5
+IO::checkpoint_on_terminate         = yes
+IO::recover                         = "autoprobe"
+#
+CarpetX::checkpoint_method      = "openpmd"
+CarpetX::recover_method         = "openpmd"
+#CarpetX::out_norm_vars          = "
+#  Z4cowGPU::W
+#  Z4cowGPU::gamma_tilde
+#  Z4cowGPU::K_hat
+#  Z4cowGPU::A_tilde
+#  Z4cowGPU::Gam_tilde
+#  Z4cowGPU::Theta
+#  Z4cowGPU::ZtC
+#  Z4cowGPU::HC
+#  Z4cowGPU::MtC
+#"
+#CarpetX::out_norm_omit_unstable = yes
+#CarpetX::out_silo_every = $out_silo_every
+#CarpetX::out_silo_vars = "
+#  #Z4cowGPU::W
+#  #Z4cowGPU::gamma_tilde
+#  #Z4cowGPU::K_hat
+#  #Z4cowGPU::A_tilde
+#  #Z4cowGPU::Gam_tilde
+#  #Z4cowGPU::Theta
+#  #Z4cowGPU::ZtC
+#  #Z4cowGPU::HC
+#  #Z4cowGPU::MtC
+#  ADMBaseX::lapse
+#  ADMBaseX::shift
+#  ADMBaseX::metric
+#  ADMBaseX::curv
+#"
+#CarpetX::out_tsv_vars = "
+#  Z4cowGPU::W
+#  Z4cowGPU::gamma_tilde
+#  Z4cowGPU::K_hat
+#  Z4cowGPU::A_tilde
+#  Z4cowGPU::Gam_tilde
+#  Z4cowGPU::Theta
+#  Z4cowGPU::ZtC
+#  Z4cowGPU::HC
+#  Z4cowGPU::MtC
+#  ADMBaseX::lapse
+#  ADMBaseX::shift
+#  ADMBaseX::metric
+#  ADMBaseX::curv
+#  PunctureTracker::pt_loc
+#  PunctureTracker::pt_vel
+#"
+
+TimerReport::out_every              = $out_every
+TimerReport::out_filename           = "TimerReport"
+TimerReport::output_schedule_timers = no
+TimerReport::n_top_timers           = 100
