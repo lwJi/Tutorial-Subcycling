@@ -1,5 +1,8 @@
 # Tutorial-Subcycling
 
+Papers:
+
+* [GPU-accelerated Subcycling Time Integration with the Einstein Toolkit](https://arxiv.org/abs/2503.09629)
 
 ## Enabling Subcycling in CarpetX
 
