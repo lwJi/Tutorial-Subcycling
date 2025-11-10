@@ -163,6 +163,14 @@ CarpetX/ODESolvers
 CarpetX/Subcycling
 CarpetX/TmunuBaseX
 
+# CarpetXUtils thorns
+!TARGET   = $ARR
+!TYPE     = git
+!URL      = https://github.com/lwJi/CarpetXUtils.git
+!REPO_PATH= $2
+!CHECKOUT =
+CarpetXUtils/CXUtils
+
 # SpacetimeX thorns
 !TARGET   = $ARR
 !TYPE     = git
@@ -174,9 +182,7 @@ SpacetimeX/AHFinderDirect
 SpacetimeX/Cowling
 SpacetimeX/Multipole
 SpacetimeX/NewRadX
-SpacetimeX/Punctures
 SpacetimeX/PunctureTracker
-SpacetimeX/STXUtils
 SpacetimeX/SphericalSurface
 SpacetimeX/TwoPuncturesX
 SpacetimeX/WeylScalo
@@ -184,18 +190,3 @@ SpacetimeX/Z4c
 SpacetimeX/Z4cow
 SpacetimeX/Z4cowGPU
 
-
-# AsterX thorns
-!TARGET   = $ARR
-!TYPE     = git
-!URL      = https://github.com/lwJi/AsterX.git
-!REPO_BRANCH = development
-!REPO_PATH= $2
-!CHECKOUT =
-AsterX/AsterSeeds
-AsterX/AsterUtils
-AsterX/AsterX
-AsterX/Con2PrimFactory
-AsterX/EOSX
-AsterX/ReconX
-AsterX/TOVSolverX
