@@ -67,10 +67,10 @@ For example,
 
 * GRMHD
 
-    * Use repo (branch `development`)
+    * Use repo (branch `developmentSC`)
 
         ```
-        https://github.com/lwJi/AsterX.git
+        https://github.com/EinsteinToolkit/AsterX.git
         ```
 
 ## More GPU-Friendly Thorns
