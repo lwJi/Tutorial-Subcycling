@@ -17,6 +17,7 @@ Papers:
     ```
     CarpetX::use_subcycling_wip = yes
     CarpetX::restrict_during_sync = no
+    ODESolvers::use_odesolvers_poststep_during_rksubsteps = no
     ```
 
 ## Modifying Your Thorn for Subcycling Compatibility
@@ -29,7 +30,7 @@ in addition to `foo_rhs`. For example,
 Otherwise, at the refinement boundaries, ghost zones may be filled using coarser-level data
 from a different time step, resulting in low-order accuracy.
 
-* Step 3 (optional): Schedule all the subroutines from `ODESolvers_PostStep` in `ODESolvers_PostSubStep` as well,
+* Step 3: Schedule all the subroutines from `ODESolvers_PostStep` in `ODESolvers_PostSubStep` as well,
 excluding the `SYNC` calls for evolved variables.
 The `SYNC` of evolved variables is automatically handled by `ODESovlers`.
 Add parameter `use_odesolvers_poststep_during_rksubsteps = no` to your parfile.
@@ -62,8 +63,7 @@ For example,
     * Thorns
 
         * [Z4c](https://github.com/lwJi/SpacetimeX/tree/development/Z4c)
-        * [Z4cow](https://github.com/lwJi/SpacetimeX/tree/development/Z4cow)
-        * [Z4cowGPU](https://github.com/lwJi/SpacetimeX/tree/development/Z4cowGPU) (optimized for GPU)
+        * [Z4cowGPU](https://github.com/lwJi/SpacetimeX/tree/development/Z4cowGPU)
 
 * GRMHD
 
