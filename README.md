@@ -6,7 +6,7 @@ Papers:
 
 ## Enabling Subcycling in CarpetX
 
-* Use repo (branch `development`)
+* Use repo (branch `dev`)
 
     ```
     https://github.com/lwJi/CarpetX.git
@@ -24,7 +24,10 @@ Papers:
 
 * Step 1: Modify the `interface.ccl` to include `foo_old, foo_k1, foo_k2, foo_k3, foo_k4`,
 in addition to `foo_rhs`. For example,
-[in Z4c](https://github.com/lwJi/SpacetimeX/blob/baa0b78ae5643a82b7dc31b3e23282538ae157f1/Z4c/interface.ccl#L56).
+[in Z4c](https://github.com/lwJi/SpacetimeX/blob/80a0383f4cbeb211254bcf88c42b037baf971cde/Z4c/interface.ccl#L56)
+
+    - add `old="foo_old"`, `ks="foo_k1 foo_k2 foo_k3 foo_k4"` after `rhs="foo_rhs"` to [`foo`](https://github.com/lwJi/SpacetimeX/blob/80a0383f4cbeb211254bcf88c42b037baf971cde/Z4c/interface.ccl#L27)
+    - set tag `checkpoint="yes" evolve="no" restrict="no"` for `foo_old, foo_k1, foo_k2, foo_k3, foo_k4` 
 
 * Step 2: Replace `SYNC` of non-evolved variables with `loop_all_device`.
 Otherwise, at the refinement boundaries, ghost zones may be filled using coarser-level data
@@ -54,7 +57,7 @@ For example,
 
 * Spacetime
 
-    * Use repo (branch `development`)
+    * Use repo (branch `dev`)
 
         ```
         https://github.com/lwJi/SpacetimeX.git
