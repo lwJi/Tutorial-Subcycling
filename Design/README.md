@@ -32,3 +32,7 @@
 ## 3. Efficient Storage for `ks`
 
 ## 4. Slow `SetKs`
+
+## 5. Only checkpoint `current` and `old` state, and always restart from coarsest `old`
+
+* [ ] we don't need to checkpoint `ks`
