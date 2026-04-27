@@ -102,7 +102,6 @@ BoxInBox::radius_2     = [-1., 220., 110., 55., 25., 10., 5., 2., 1.]
 
 ODESolvers::verbose = no
 ODESolvers::method  = "RK4"
-ODESolvers::use_odesolvers_poststep_during_rksubsteps = no
 
 PunctureTracker::verbose      = no
 PunctureTracker::track_boxes  = yes

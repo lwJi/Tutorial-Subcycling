@@ -21,7 +21,6 @@ Design:
     ```
     CarpetX::use_subcycling_wip = yes
     CarpetX::restrict_during_sync = no
-    ODESolvers::use_odesolvers_poststep_during_rksubsteps = no
     ```
 
 
@@ -42,17 +41,7 @@ Specifically:
 
 At refinement boundaries, ghost zones may be filled using coarser-level data from a different time step, resulting in low-order accuracy. Using `loop_all_device` instead of `SYNC` for non-evolved variables avoids this issue.
 
-### Step 3: Schedule subroutines for sub-step execution
-
-Schedule all subroutines from `ODESolvers_PostStep` in `ODESolvers_PostSubStep` as well, excluding the `SYNC` calls for evolved variables — `ODESolvers` handles those automatically.
-
-Add the following parameter to your parfile:
-
-```
-use_odesolvers_poststep_during_rksubsteps = no
-```
-
-### Step 4: Add `ODESolvers_Solve_Subcycling` to schedule.ccl
+### Step 3: Add `ODESolvers_Solve_Subcycling` to schedule.ccl
 
 In the `schedule.ccl` file that contains `ODESolvers_Solve`, add a corresponding `ODESolvers_Solve_Subcycling` schedule block.
 
@@ -87,7 +76,7 @@ Thorns
 
 ### GRMHD
 
-Use repo (branch `developmentSC`)
+Use repo (branch `devSC`)
 
 ```
 https://github.com/EinsteinToolkit/AsterX.git
