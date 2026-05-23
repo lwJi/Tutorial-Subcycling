@@ -40,9 +40,11 @@ Cactus::cctk_final_time    = $final_time
 
 CarpetX::verbose                 = no
 CarpetX::poison_undefined_values = no
+CarpetX::poison_undefined_arrays = no
 
 CarpetX::use_subcycling_wip   = yes
 CarpetX::restrict_during_sync = no
+Z4cowGPU::timelevels = 2
 
 CarpetX::xmin     = $xmin
 CarpetX::ymin     = $xmin
