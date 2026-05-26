@@ -53,7 +53,7 @@ See [WeylScalo](https://github.com/lwJi/SpacetimeX/blob/80a0383f4cbeb211254bcf88
 
 ## List of Thorns Compatible with Subcycling
 
-### Spacetime
+### SpacetimeX
 
 Use repo (branch `dev`)
 
@@ -66,9 +66,9 @@ Thorns
 * [Z4c](https://github.com/lwJi/SpacetimeX/tree/dev/Z4c)
 * [Z4cowGPU](https://github.com/lwJi/SpacetimeX/tree/dev/Z4cowGPU)
 
-### GRMHD
+### AsterX
 
-Use repo (branch `devSC`)
+Use repo (branch `dev`)
 
 ```
 https://github.com/EinsteinToolkit/AsterX.git
@@ -77,6 +77,8 @@ https://github.com/EinsteinToolkit/AsterX.git
 ## More GPU-Friendly Thorns
 
 * [WeylScalo](https://github.com/lwJi/SpacetimeX/tree/dev/WeylScalo)
+
+    - It requires thorn `CXUtils` from repo: `https://github.com/lwJi/CarpetXUtils`
 
 
 ## Example Parfiles
