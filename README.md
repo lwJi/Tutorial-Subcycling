@@ -26,22 +26,18 @@ Design:
 
 ## Modifying Your Thorn for Subcycling Compatibility
 
-### Step 1: Update `interface.ccl` with RK storage variables
+### Step 1: Revisit `SYNC` for Non-Evolution Variables
 
-In addition to `foo_rhs` add the following variables: `foo_old`, `foo_k1`, `foo_k2`, `foo_k3`, `foo_k4`.
+When dealing with non-evolution variables, your synchronization strategy must change depending on what the variables rely on:
 
-See [Z4c](https://github.com/lwJi/SpacetimeX/blob/80a0383f4cbeb211254bcf88c42b037baf971cde/Z4c/interface.ccl#L56) for a working example.
+* **Variables depending only on evolution variables (no derivatives)**: Do not use `SYNC`. Using `SYNC` can mistakenly pull data from the coarse level that is not aligned with the current fine level at refinement boundary. Instead, compute these variables locally by using `loop_all_device`.
 
-Specifically:
+* **Variables depending on derivatives of evolution variables**: Using `SYNC` here can mistakenly pull data from the coarse level that is not aligned with the current fine level. To resolve this, you must average the old and new coarse levels before prolongating to the fine level. Enable this behavior by adding
+    - `TIMELEVELS=2` in your `interface.ccl` for those variables,
+    - `STORAGE: foo[timelevels]` in your `schedule.ccl`.
+    - `foo::timelevels = 2` in your parfile.
 
-* Append `old="foo_old"` and `ks="foo_k1 foo_k2 foo_k3 foo_k4"` after `rhs="foo_rhs"` in the declaration of [`foo`](https://github.com/lwJi/SpacetimeX/blob/80a0383f4cbeb211254bcf88c42b037baf971cde/Z4c/interface.ccl#L27).
-* Set the tags `checkpoint="yes" evolve="no" restrict="no"` for `foo_old`, `foo_k1`, `foo_k2`, `foo_k3`, `foo_k4`.
-
-### Step 2: Replace `SYNC` of non-evolved variables with `loop_all_device`
-
-At refinement boundaries, ghost zones may be filled using coarser-level data from a different time step, resulting in low-order accuracy. Using `loop_all_device` instead of `SYNC` for non-evolved variables avoids this issue.
-
-### Step 3: Add `ODESolvers_Solve_Subcycling` to schedule.ccl
+### Step 2: Add `ODESolvers_Solve_Subcycling` to schedule.ccl
 
 In the `schedule.ccl` file that contains `ODESolvers_Solve`, add a corresponding `ODESolvers_Solve_Subcycling` schedule block.
 
