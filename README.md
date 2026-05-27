@@ -15,7 +15,7 @@ Papers:
 * Add the following parameters to the parameter file
 
     ```
-    CarpetX::use_subcycling_wip = yes
+    CarpetX::use_subcycling = yes
     CarpetX::restrict_during_sync = no
     ```
 
