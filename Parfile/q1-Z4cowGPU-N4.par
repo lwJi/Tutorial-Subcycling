@@ -1,6 +1,6 @@
 # q1-Z4cowGPU.par
 
-$itlast             = 64 * 16
+$itlast             = 256 * 16
 $final_time         = 600
 $xmin               = -400.0
 $xmax               = +400.0
@@ -44,7 +44,6 @@ CarpetX::poison_undefined_arrays = no
 
 CarpetX::use_subcycling_wip   = yes
 CarpetX::restrict_during_sync = no
-Z4cowGPU::timelevels = 2
 
 CarpetX::xmin     = $xmin
 CarpetX::ymin     = $xmin
@@ -230,9 +229,9 @@ Multipole::interpolator_pars = "order=3"
 IO::checkpoint_dir                  = "../checkpoint"
 IO::recover_dir                     = "../checkpoint"
 IO::checkpoint_ID                   = no
-IO::checkpoint_every                = 256 * 115
+IO::checkpoint_every                = 256 * 185
 #IO::checkpoint_every_walltime_hours = 23.5
-IO::checkpoint_on_terminate         = yes
+IO::checkpoint_on_terminate         = no
 IO::recover                         = "autoprobe"
 #
 CarpetX::checkpoint_method      = "openpmd"
