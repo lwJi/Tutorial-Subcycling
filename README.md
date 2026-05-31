@@ -17,6 +17,8 @@ Papers:
     ```
     CarpetX::use_subcycling = yes
     CarpetX::restrict_during_sync = no
+
+    ODESolvers::method = "RK4" # or "SSPRK3"
     ```
 
 
