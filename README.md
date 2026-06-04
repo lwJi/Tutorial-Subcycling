@@ -6,7 +6,7 @@ Papers:
 
 ## Enabling Subcycling in CarpetX
 
-* Use repo (branch `dev`)
+* Use repo (branch `dev`, see more details [here](Docs/DevBranch.md))
 
     ```
     https://github.com/lwJi/CarpetX.git
