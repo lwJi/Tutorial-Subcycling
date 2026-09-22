@@ -42,7 +42,7 @@ CarpetX::verbose                 = no
 CarpetX::poison_undefined_values = no
 CarpetX::poison_undefined_arrays = no
 
-CarpetX::use_subcycling_wip   = yes
+CarpetX::use_subcycling = yes
 CarpetX::restrict_during_sync = no
 
 CarpetX::xmin     = $xmin
