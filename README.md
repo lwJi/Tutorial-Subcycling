@@ -31,7 +31,7 @@ When dealing with non-evolution variables, your synchronization strategy must ch
 * **Variables depending only on evolution variables (no derivatives)**: Do not use `SYNC`. Using `SYNC` can mistakenly pull data from the coarse level that is not aligned with the current fine level at refinement boundary. Instead, compute these variables locally by using `loop_all_device`.
 
 * **Variables depending on derivatives of evolution variables**: Using `SYNC` here can mistakenly pull data from the coarse level that is not aligned with the current fine level. To resolve this, you must average the old and new coarse levels before prolongating to the fine level. Enable this behavior by adding
-    - `TIMELEVELS=2` in your `interface.ccl` for those variables,
+    - `TIMELEVELS=2` in your `interface.ccl` for those variables, and set `TAGS='checkpoint="yes" evolve="no" restrict="no"'
     - `STORAGE: foo[timelevels]` in your `schedule.ccl`.
     - `foo::timelevels = 2` in your parfile.
 
