@@ -237,7 +237,7 @@ IO::recover                         = "autoprobe"
 #
 CarpetX::checkpoint_method      = "openpmd"
 CarpetX::recover_method         = "openpmd"
-#CarpetX::out_norm_vars          = "
+CarpetX::out_norm_vars          = "
 #  Z4cowGPU::W
 #  Z4cowGPU::gamma_tilde
 #  Z4cowGPU::K_hat
@@ -245,9 +245,9 @@ CarpetX::recover_method         = "openpmd"
 #  Z4cowGPU::Gam_tilde
 #  Z4cowGPU::Theta
 #  Z4cowGPU::ZtC
-#  Z4cowGPU::HC
+  Z4cowGPU::HC
 #  Z4cowGPU::MtC
-#"
+"
 #CarpetX::out_norm_omit_unstable = yes
 #CarpetX::out_silo_every = $out_silo_every
 #CarpetX::out_silo_vars = "
