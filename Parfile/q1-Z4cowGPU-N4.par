@@ -1,6 +1,6 @@
 # q1-Z4cowGPU.par
 
-$itlast             = 256 * 16
+$itlast             = 256 * 4
 $final_time         = 600
 $xmin               = -400.0
 $xmax               = +400.0
@@ -138,6 +138,7 @@ Z4cowGPU::boundary_conditions = "NewRadX"
 
 WeylScalo::calc_derivs_live = no
 WeylScalo::elecmag_weyl     = no
+WeylScalo::timelevels       = 2
 
 Multipole::verbose   = no
 Multipole::nradii    = 6
@@ -230,8 +231,8 @@ IO::checkpoint_dir                  = "../checkpoint"
 IO::recover_dir                     = "../checkpoint"
 IO::checkpoint_ID                   = no
 IO::checkpoint_every                = 256 * 185
-#IO::checkpoint_every_walltime_hours = 23.5
-IO::checkpoint_on_terminate         = no
+IO::checkpoint_every_walltime_hours = 1.9
+IO::checkpoint_on_terminate         = yes
 IO::recover                         = "autoprobe"
 #
 CarpetX::checkpoint_method      = "openpmd"
