@@ -224,9 +224,9 @@ Multipole::interpolator_pars = "order=3"
 #TerminationTrigger::termination_file             = "terminate.txt"
 #TerminationTrigger::create_termination_file      = yes
 
-#IO::out_dir                         = $parfile
-#IO::out_every                       = $out_every
-#IO::parfile_write                   = no
+IO::out_dir                         = $parfile
+IO::out_every                       = $out_every
+IO::parfile_write                   = no
 IO::checkpoint_dir                  = "../checkpoint"
 IO::recover_dir                     = "../checkpoint"
 IO::checkpoint_ID                   = no
@@ -246,7 +246,7 @@ CarpetX::out_norm_vars          = "
 #  Z4cowGPU::Theta
 #  Z4cowGPU::ZtC
   Z4cowGPU::HC
-#  Z4cowGPU::MtC
+  Z4cowGPU::MtC
 "
 #CarpetX::out_norm_omit_unstable = yes
 #CarpetX::out_silo_every = $out_silo_every
